@@ -1,0 +1,23 @@
+<div class="file-browser">
+  <button type="button" class="btn btn-default" [disabled]="disableBack" (click)="back()">
+    Back
+  </button>
+  <ul>
+    <li *ngFor="let dir of dirs" (click)="openPath(dir)">
+      <div class="image">
+        <img src="/assets/images/folder.jpg" alt="" class="img-thumbnail">
+      </div>
+      <div class="title">
+        {{dir.title}}
+      </div>
+    </li>
+    <li *ngFor="let file of files; let i = index" (click)="openPreview(i)">
+      <div class="image">
+        <img [defaultImage]="'/assets/images/loading.gif'" [lazyLoad]="file.thumb" [offset]="100" alt="" class="img-thumbnail">
+      </div>
+      <div class="title">
+        {{file.caption}}
+      </div>
+    </li>
+  </ul>
+</div>
