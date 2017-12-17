@@ -1,5 +1,17 @@
 <div class="file-browser">
+  <nav aria-label="breadcrumb" role="navigation">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="#">Home</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="#">Library</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">Data</li>
+    </ol>
+  </nav>
   <button type="button" class="btn btn-default" [disabled]="disableBack" (click)="back()">
+    <i class="fa fa-undo"></i>
     Back
   </button>
   <ul>
@@ -12,8 +24,10 @@
       </div>
     </li>
     <li *ngFor="let file of files; let i = index" (click)="openPreview(i)">
-      <div class="image">
-        <img [defaultImage]="'/assets/images/loading.gif'" [lazyLoad]="file.thumb" [offset]="100" alt="" class="img-thumbnail">
+      <div class="image file-type-{{file.type}}">
+        <img [defaultImage]="'/assets/images/loading2.gif'" [file]="file" [thumbRotator]="file.type == 'video'" [animation]="videoAnimation(file)"
+          [lazyLoad]="file.thumb" [offset]="100" (onLoad)="imageLoaded($event, file)" alt="" class="img-thumbnail">
+        <i class="fa fa-search-plus magnifier"></i>
       </div>
       <div class="title">
         {{file.caption}}

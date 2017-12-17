@@ -1,25 +1,28 @@
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { HttpClientModule } from '@angular/common/http';
 import { LazyLoadImageModule } from "ng-lazyload-image";
 
 import { AppComponent } from './app.component';
 import { NetworkService } from "./network.service";
-import { HttpClientModule } from '@angular/common/http';
 import { FileBrowserComponent } from './file-browser/file-browser.component';
-import { LightboxModule } from "angular2-lightbox";
+import { ThumbRotatorDirective } from './file-browser/video-thumb-rotate.directive';
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { ImagePreviewComponent } from './file-browser/image-preview/image-preview.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FileBrowserComponent
+    FileBrowserComponent,
+    ThumbRotatorDirective,
+    ImagePreviewComponent
   ],
   imports: [
+    NgbModule.forRoot(),
     BrowserModule,
     HttpClientModule,
     LazyLoadImageModule,
-    LightboxModule,
     RouterModule.forRoot([
       {
         path: 'browser',
@@ -27,6 +30,9 @@ import { LightboxModule } from "angular2-lightbox";
       },
       { path: '', redirectTo: '/browser', pathMatch: 'full' }
     ])
+  ],
+  entryComponents: [
+    ImagePreviewComponent
   ],
   providers: [NetworkService],
   bootstrap: [AppComponent]

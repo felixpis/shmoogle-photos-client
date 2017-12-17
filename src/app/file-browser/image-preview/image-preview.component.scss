@@ -1,0 +1,42 @@
+.image-preview-body {
+    .actions {
+        height: 30px;
+        i {
+            cursor: pointer;
+        }
+    }
+    .content-block {
+        width: 80vw;
+        margin: auto;
+        text-align: center; //border: solid 1px blue;
+        .image-block {
+            height: 80vh;
+            text-align: center; //border: solid 1px green;
+            img {
+                max-height: 100%;
+            }
+            video {
+                max-height: 100%;
+                max-width: 100%;
+            }
+        }
+        .prev-image,
+        .next-image {
+            position: absolute;
+            opacity: 0.4;
+            top: 50%;
+            font-size: 60px;
+            margin-top: -30px;
+            cursor: pointer;
+            &:hover {
+                opacity: 0.9;
+            }
+        }
+        .prev-image {
+            left: 0;
+        }
+        .next-image {
+            right: 0;
+        }
+    }
+}

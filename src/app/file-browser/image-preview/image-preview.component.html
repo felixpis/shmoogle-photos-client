@@ -1,0 +1,26 @@
+<div class="modal-body image-preview-body">
+  <div class="actions">
+    <i class="fa fa-arrow-left" (click)="close()"></i>
+  </div>
+  <div class="content-block">
+    <div class="image-block">
+      <img [src]="currentImage.src" *ngIf="currentImage.type == 'image'" alt="">
+      <video [src]="currentImage.src" controls autoplay *ngIf="currentImage.type == 'video'" (error)="videoError($event)">
+      </video>
+      <p class="bg-danger" *ngIf="errorOccured">
+        It was a problem to play video. Please try to
+        <a [href]="currentImage.src" target="_blank" download>download it</a>
+      </p>
+      <!-- <vg-player *ngIf="currentImage.type == 'video'">
+        <video [vgMedia]="media" #media id="singleVideo" preload="auto" controls>
+          <source [src]="currentImage.src" type="video/mp4">
+        </video>
+      </vg-player> -->
+    </div>
+    <div class="image-title">
+      {{currentImage.caption}}
+    </div>
+    <i class="fa fa-arrow-circle-left prev-image" (click)="prev()"></i>
+    <i class="fa fa-arrow-circle-right next-image" (click)="next()"></i>
+  </div>
+</div>

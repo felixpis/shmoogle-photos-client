@@ -4,16 +4,36 @@
         li {
             float: left;
             width: 200px;
-            cursor: pointer;
             margin: 5px;
+            text-align: center;
             .image {
                 height: 200px;
                 line-height: 200px;
                 outline: solid 1px lightgray;
                 background: #f7f7f7;
+                position: relative;
+                cursor: pointer;
+                &.file-type-image:hover {
+                    filter: grayscale(100%);
+                    .magnifier {
+                        display: block;
+                    }
+                }
                 img {
                     max-height: 100%;
                     margin-top: -3px;
+                }
+                .magnifier {
+                    display: none;
+                    position: absolute;
+                    font-size: 40px;
+                    margin-left: -20px;
+                    top: 50%;
+                    left: 50%;
+                    z-index: 40;
+                    margin-top: -20px;
+                    color: white;
+                    opacity: 0.8;
                 }
             }
             .title {
@@ -22,6 +42,18 @@
                 height: 43px;
                 overflow: hidden;
             }
+        }
+    }
+}
+
+.image-preview-modal {
+    .modal-dialog {
+        margin: -1px;
+        max-width: none;
+        .modal-content {
+            background-color: black;
+            height: 100vh;
+            color: white;
         }
     }
 }

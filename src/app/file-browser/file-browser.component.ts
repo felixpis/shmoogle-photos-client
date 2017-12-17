@@ -1,11 +1,16 @@
 import { NetworkService } from '../network.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Lightbox } from 'angular2-lightbox/lightbox.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ImagePreviewComponent } from './image-preview/image-preview.component';
+
+const PAGE_SIZE: number = 10;
 
 @Component({
   selector: 'app-file-browser',
   templateUrl: './file-browser.component.html',
-  styleUrls: ['./file-browser.component.scss']
+  styleUrls: ['./file-browser.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class FileBrowserComponent implements OnInit {
 
@@ -14,7 +19,16 @@ export class FileBrowserComponent implements OnInit {
   };
   public dirs: any[] = [];
   public files: any[] = [];
-  constructor(private network: NetworkService, private lightbox: Lightbox) { }
+  constructor(private network: NetworkService,
+    private modalService: NgbModal) {
+  }
+
+  videoAnimation(file) {
+    if (file.type != 'video') {
+      return null;
+    }
+    return `${file.thumb}?id=animation`;
+  }
 
   ngOnInit() {
     this.getPaths('');
@@ -33,10 +47,10 @@ export class FileBrowserComponent implements OnInit {
   prepareFileBlocks(path, files) {
     let resultFiles = [];
     let page = 0;
-    let pages = Math.ceil(files.length / 5);
+    let pages = Math.ceil(files.length / PAGE_SIZE);
     for (let index = 0; index < pages; index++) {
-      let start = index * 5;
-      let partlyFiles = files.slice(start, start + 5);
+      let start = index * PAGE_SIZE;
+      let partlyFiles = files.slice(start, start + PAGE_SIZE);
       resultFiles.push(partlyFiles);
     }
 
@@ -69,7 +83,14 @@ export class FileBrowserComponent implements OnInit {
   }
 
   openPreview(index: number) {
-    this.lightbox.open(this.files, index);
+    const modalRef = this.modalService.open(ImagePreviewComponent, { windowClass: 'image-preview-modal' });
+    modalRef.componentInstance.files = this.files;
+    modalRef.componentInstance.index = index;
+    //this.lightbox.open(this.files, index);
+  }
+
+  imageLoaded($event, file) {
+    file.isLoaded = true;
   }
 
 }

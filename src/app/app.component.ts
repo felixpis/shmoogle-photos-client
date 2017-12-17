@@ -7,9 +7,8 @@ import { NetworkService } from "./network.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
 
-  constructor(private network: NetworkService) {
+  constructor() {
   }
 
 
