@@ -17,6 +17,7 @@ export class FileBrowserComponent implements OnInit {
   public paths: any = {
     files: [], currentPath: null, previousPath: null
   };
+  public breadcrumb: any[] = [];
   public dirs: any[] = [];
   public files: any[] = [];
   constructor(private network: NetworkService,
@@ -67,7 +68,13 @@ export class FileBrowserComponent implements OnInit {
   }
 
   openPath(dir) {
+    this.breadcrumb.push(dir);
     this.getPaths(dir.path);
+  }
+
+  goToPath(part, i) {
+    this.breadcrumb.splice(i);
+    this.openPath(part);
   }
 
   get disableBack() {
@@ -78,7 +85,7 @@ export class FileBrowserComponent implements OnInit {
     if (this.paths.previousPath === null) {
       return;
     }
-
+    this.breadcrumb.splice(this.breadcrumb.length - 1);
     this.getPaths(this.paths.previousPath);
   }
 

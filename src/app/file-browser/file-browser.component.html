@@ -1,19 +1,17 @@
 <div class="file-browser">
-  <nav aria-label="breadcrumb" role="navigation">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item">
-        <a href="#">Home</a>
-      </li>
-      <li class="breadcrumb-item">
-        <a href="#">Library</a>
-      </li>
-      <li class="breadcrumb-item active" aria-current="page">Data</li>
-    </ol>
-  </nav>
-  <button type="button" class="btn btn-default" [disabled]="disableBack" (click)="back()">
-    <i class="fa fa-undo"></i>
-    Back
-  </button>
+  <div class="top-header">
+    <button type="button" class="btn btn-default" [disabled]="disableBack" (click)="back()">
+      <i class="fa fa-arrow-left"></i>
+      Back
+    </button>
+    <nav aria-label="breadcrumb" role="navigation">
+      <ol class="breadcrumb" *ngIf="breadcrumb.length > 0">
+        <li class="breadcrumb-item" [ngClass]="{'active' : i == breadcrumb.length - 1}" *ngFor="let part of breadcrumb;  let i = index">
+          <button class="btn btn-link" (click)="goToPath(part, i)">{{part.title}}</button>
+        </li>
+      </ol>
+    </nav>
+  </div>
   <ul>
     <li *ngFor="let dir of dirs" (click)="openPath(dir)">
       <div class="image">

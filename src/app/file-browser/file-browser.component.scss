@@ -1,4 +1,19 @@
 .file-browser {
+    padding-top: 70px;
+    .top-header {
+        display: flex;
+        height: 48px;
+        .btn-default {
+            margin-right: 10px;
+        }
+        margin-bottom: 15px;
+        .breadcrumb {
+            padding: 11px;
+            .btn-link {
+                padding: 0;
+            }
+        }
+    }
     ul {
         list-style: none;
         li {
